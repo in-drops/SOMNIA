@@ -67,29 +67,29 @@ def activity(bot: Bot):
         random_sleep(3, 5)
         bot.ads.page.get_by_role('button', name='Request Tokens').scroll_into_view_if_needed()
         random_sleep(3, 5)
-        bot.ads.page.get_by_role('button', name='Request Tokens').hover(timeout=10000)
+        bot.ads.page.get_by_role('button', name='Request Tokens').hover(timeout=20000)
         bot.ads.page.get_by_role('button', name='Request Tokens').click()
         random_sleep(3, 5)
-        bot.ads.page.get_by_role('button', name='Get STT').hover(timeout=10000)
+        bot.ads.page.get_by_role('button', name='Get STT').hover(timeout=20000)
         bot.ads.page.get_by_role('button', name='Get STT').click()
         random_sleep(20, 30)
 
     bot.ads.page.locator('button', has_text='Close').click()
 
     random_sleep(5, 10)
-    bot.ads.page.get_by_role('button', name='Send Tokens').hover(timeout=10000)
+    bot.ads.page.get_by_role('button', name='Send Tokens').hover(timeout=20000)
     bot.ads.page.get_by_role('button', name='Send Tokens').click()
     random_sleep(3, 5)
 
-    bot.ads.page.get_by_role('button', name='0.001').hover(timeout=10000)
+    bot.ads.page.get_by_role('button', name='0.001').hover(timeout=20000)
     bot.ads.page.get_by_role('button', name='0.001').click()
     random_sleep(3, 5)
 
-    bot.ads.page.get_by_role('button', name='Random Address').hover(timeout=10000)
+    bot.ads.page.get_by_role('button', name='Random Address').hover(timeout=20000)
     bot.ads.page.get_by_role('button', name='Random Address').click()
     random_sleep(3, 5)
 
-    bot.ads.page.get_by_role('button', name='Send STT').hover(timeout=10000)
+    bot.ads.page.get_by_role('button', name='Send STT').hover(timeout=20000)
     bot.ads.page.get_by_role('button', name='Send STT').click()
     bot.metamask.universal_confirm()
     random_sleep(10, 15)
@@ -97,7 +97,7 @@ def activity(bot: Bot):
     if bot.ads.page.locator('button', has_text='Close').count():
         bot.ads.page.locator('button', has_text='Close').click()
 
-    bot.ads.page.get_by_role('button', name='Send Tokens').hover(timeout=10000)
+    bot.ads.page.get_by_role('button', name='Send Tokens').hover(timeout=20000)
     bot.ads.page.get_by_role('button', name='Send Tokens').click()
 
     if bot.ads.page.get_by_role('dialog').get_by_text('Transfer successful!').count():

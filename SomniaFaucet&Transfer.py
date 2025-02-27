@@ -64,24 +64,17 @@ def activity(bot: Bot):
 
     for _ in range(3):
         bot.ads.page.reload(wait_until='load')
-        random_sleep(2, 3)
+        random_sleep(3, 5)
         bot.ads.page.get_by_role('button', name='Request Tokens').scroll_into_view_if_needed()
         random_sleep(3, 5)
         bot.ads.page.get_by_role('button', name='Request Tokens').hover(timeout=5000)
         bot.ads.page.get_by_role('button', name='Request Tokens').click()
         random_sleep(3, 5)
-        bot.ads.page.get_by_role('button', name='Get STT').hover()
+        bot.ads.page.get_by_role('button', name='Get STT').hover(timeout=5000)
         bot.ads.page.get_by_role('button', name='Get STT').click()
-        random_sleep(5, 10)
-        if bot.ads.page.locator('button', has_text='Tokens Sent!').count():
-            logger.success('Токены STT успешно получены! Делаем transfer.')
-            bot.ads.page.locator('button', has_text='Close').click()
-            excel_report.increase_counter(f'Faucet')
-            random_sleep(5, 10)
-            break
-    else:
-        logger.warning('Ошибка получения токенов STT! Делаем transfer.')
-        bot.ads.page.locator('button', has_text='Close').click()
+        random_sleep(20, 30)
+
+    bot.ads.page.locator('button', has_text='Close').click()
 
     random_sleep(5, 10)
     bot.ads.page.get_by_role('button', name='Send Tokens').hover(timeout=5000)
@@ -101,6 +94,9 @@ def activity(bot: Bot):
     bot.metamask.universal_confirm()
     random_sleep(10, 15)
 
+    if bot.ads.page.locator('button', has_text='Close').count():
+        bot.ads.page.locator('button', has_text='Close').click()
+
     bot.ads.page.get_by_role('button', name='Send Tokens').hover(timeout=5000)
     bot.ads.page.get_by_role('button', name='Send Tokens').click()
 
@@ -109,7 +105,6 @@ def activity(bot: Bot):
         excel_report.increase_counter(f'Transfer Site')
     else:
         logger.error('Transfer токенов не удался! Возможно нехватка баланса или ошибка сайта / блокчейна.')
-
 
 
 if __name__ == '__main__':

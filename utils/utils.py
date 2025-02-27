@@ -362,7 +362,6 @@ def get_user_agent() -> str:
     return random.choice(user_agents)
 
 def generate_random_evm_address():
-    """Генерирует случайный EVM-адрес для отправки токенов."""
-    private_key = ''.join(random.choices('0123456789abcdef', k=64))  # Генерация приватного ключа
-    account = Web3().eth.account.from_key(private_key)  # Получение аккаунта
-    return account.address  # Возвращаем только адрес
+    private_key = ''.join(random.choices('0123456789abcdef', k=64))
+    account = Web3().eth.account.from_key(private_key)
+    return account.address

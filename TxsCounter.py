@@ -36,7 +36,7 @@ def worker(account: Account) -> None:
 def activity(bot: Bot):
 
     get_user_agent()
-    excel_report = Excel(bot.account, file='MonadActivity.xlsx')
+    excel_report = Excel(bot.account, file='SomniaActivity.xlsx')
     excel_report.set_cell('Address', f'{bot.account.address}')
     excel_report.set_date('Date')
 
@@ -44,7 +44,7 @@ def activity(bot: Bot):
         onchain_instance = Onchain(bot.account, Chains.SOMNIA_TESTNET)
         nonce = onchain_instance.get_tx_count(address=bot.account.address)
         excel_report.set_cell(f'Txs Count', f'{nonce}')
-        logger.info(f'Данные занесены в таблицу MonadActivity.xls!')
+        logger.info(f'Данные занесены в таблицу SomniaActivity.xls!')
     except Exception as e:
         logger.error(f'Ошибка в сети {Chains.SOMNIA_TESTNET.name.upper()}: {e}')
 

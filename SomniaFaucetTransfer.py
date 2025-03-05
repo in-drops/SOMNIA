@@ -75,6 +75,7 @@ def activity(bot: Bot):
         random_sleep(10, 20)
         if bot.ads.page.get_by_role('dialog').get_by_text('Sending tokens...⏳').count():
             logger.success('Идёт процесс получения токенов SST!')
+            excel_report.increase_counter(f'Faucet')
             random_sleep(20, 30)
             break
 

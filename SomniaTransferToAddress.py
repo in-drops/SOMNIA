@@ -42,7 +42,7 @@ def activity(bot: Bot):
 
     get_user_agent()
     bot.onchain.change_chain(Chains.SOMNIA_TESTNET)
-    excel_report = Excel(bot.account, file='SonniaActivity.xlsx')
+    excel_report = Excel(bot.account, file='SomniaActivity.xlsx')
     excel_report.set_cell('Address', f'{bot.account.address}')
     excel_report.set_date('Date')
     random_address = generate_random_evm_address()

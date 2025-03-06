@@ -41,7 +41,7 @@ def worker(account: Account) -> None:
 
 def activity(bot: Bot):
 
-    excel_report = Excel(bot.account, file='SonniaActivity.xlsx')
+    excel_report = Excel(bot.account, file='SomniaActivity.xlsx')
     excel_report.set_cell('Address', f'{bot.account.address}')
     excel_report.set_date('Date')
     bot.metamask.auth_metamask()

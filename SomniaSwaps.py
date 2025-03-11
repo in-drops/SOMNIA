@@ -128,7 +128,7 @@ def activity(bot: Bot):
 
     amount = random.randint(10, 300)
     swaps = 0
-    random_count = random.randint(2, 5)
+    random_count = random.randint(5, 10)
 
     while swaps < random_count:
         bot.ads.page.locator("input[name='amountIn']").click()

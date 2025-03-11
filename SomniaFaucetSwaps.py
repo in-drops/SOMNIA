@@ -68,7 +68,7 @@ def activity(bot: Bot):
     random_sleep(3, 5)
     bot.ads.page.get_by_role('button', name='Swap').hover(timeout=5000)
     bot.ads.page.get_by_role('button', name='Swap').click()
-    random_sleep(20, 30)
+    random_sleep(10, 20)
 
     if bot.ads.page.get_by_role('button', name='Mint $PONG').is_enabled(timeout=100000) and bot.ads.page.get_by_role(
             'button',

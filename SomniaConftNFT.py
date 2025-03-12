@@ -43,6 +43,10 @@ def activity(bot: Bot):
     bot.onchain.change_chain(Chains.SOMNIA_TESTNET)
     conft_nft_address = '0xFC79f0EaC5bEcf21fDcf037bAdb977b2b43DE497'
     amount = Amount(0.1)
+    somnia_balance = bot.onchain.get_balance().ether
+    if somnia_balance < amount:
+        logger.error(f'Баланс в сети {Chains.SOMNIA_TESTNET} недостаточный: {somnia_balance:.4f}! Сумма покупки: {amount:.4f}.')
+        return
     tx = bot.onchain._prepare_tx(value=amount, to_address=conft_nft_address)
     tx['data'] = '0x1249c58b'
     bot.onchain._estimate_gas(tx)

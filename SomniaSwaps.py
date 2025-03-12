@@ -75,7 +75,7 @@ def activity(bot: Bot):
             name='Mint $PING').is_enabled(timeout=100000):
         bot.ads.page.get_by_role('button', name='Mint $PONG').hover(timeout=5000)
         bot.ads.page.get_by_role('button', name='Mint $PONG').click()
-        random_sleep(5, 10)
+        random_sleep(3, 5)
         bot.metamask.universal_confirm()
         random_sleep(5, 10)
 
@@ -89,7 +89,7 @@ def activity(bot: Bot):
 
         bot.ads.page.get_by_role('button', name='Mint $PING').hover(timeout=5000)
         bot.ads.page.get_by_role('button', name='Mint $PING').click()
-        random_sleep(5, 10)
+        random_sleep(3, 5)
         bot.metamask.universal_confirm()
         random_sleep(5, 10)
 
@@ -114,7 +114,7 @@ def activity(bot: Bot):
         bot.ads.page.locator("input[name='amountIn']").clear()
         random_sleep(3, 5)
         bot.ads.page.keyboard.type(f'{amount}', delay=500)
-        random_sleep(3, 5)
+        random_sleep(5, 10)
 
         if bot.ads.page.get_by_role('button', name='Approve').count():
             bot.ads.page.get_by_role('button', name='Approve').click()
@@ -147,7 +147,6 @@ def activity(bot: Bot):
             excel_report.increase_counter(f'Swaps')
             swaps += 1
             random_sleep(5, 10)
-
             bot.ads.page.get_by_alt_text('swap').click()
             random_sleep(3, 5)
         else:

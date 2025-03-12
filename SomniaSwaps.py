@@ -76,18 +76,7 @@ def activity(bot: Bot):
         bot.ads.page.get_by_role('button', name='Mint $PONG').hover(timeout=5000)
         bot.ads.page.get_by_role('button', name='Mint $PONG').click()
         random_sleep(5, 10)
-
-        for _ in range(50):
-            metamask_page = bot.ads.catch_page(['notification'])
-            if metamask_page:
-                metamask_page.wait_for_load_state('load')
-                bot.metamask.universal_confirm()
-                break
-            random_sleep(5, 10)
-        else:
-            logger.error(f'Проблема вызова окна Metamask при подтверждении транзакции!')
-            return
-
+        bot.metamask.universal_confirm()
         random_sleep(5, 10)
 
         for _ in range(50):
@@ -101,18 +90,7 @@ def activity(bot: Bot):
         bot.ads.page.get_by_role('button', name='Mint $PING').hover(timeout=5000)
         bot.ads.page.get_by_role('button', name='Mint $PING').click()
         random_sleep(5, 10)
-
-        for _ in range(50):
-            metamask_page = bot.ads.catch_page(['notification'])
-            if metamask_page:
-                metamask_page.wait_for_load_state('load')
-                bot.metamask.universal_confirm()
-                break
-            random_sleep(5, 10)
-        else:
-            logger.error(f'Проблема вызова окна Metamask при подтверждении транзакции!')
-            return
-
+        bot.metamask.universal_confirm()
         random_sleep(5, 10)
 
         for _ in range(50):
@@ -126,51 +104,55 @@ def activity(bot: Bot):
     else:
         logger.error('Проблема загрузки элементов страницы!')
 
-    amount = random.randint(10, 300)
     swaps = 0
     random_count = random.randint(5, 10)
 
     while swaps < random_count:
+        amount = random.randint(10, 300)
         bot.ads.page.locator("input[name='amountIn']").click()
+        random_sleep(3, 5)
+        bot.ads.page.locator("input[name='amountIn']").clear()
         random_sleep(3, 5)
         bot.ads.page.keyboard.type(f'{amount}', delay=500)
         random_sleep(3, 5)
 
         if bot.ads.page.get_by_role('button', name='Approve').count():
             bot.ads.page.get_by_role('button', name='Approve').click()
-
-            for _ in range(50):
-                metamask_page = bot.ads.catch_page(['notification'])
-                if metamask_page:
-                    metamask_page.wait_for_load_state('load')
-                    bot.metamask.universal_confirm()
-                    break
-                random_sleep(5, 10)
-            else:
-                logger.error(f'Проблема вызова окна Metamask при подтверждении транзакции!')
-                return
-
+            random_sleep(3, 5)
+            bot.metamask.universal_confirm()
             random_sleep(5, 10)
+
+        for _ in range(50):
+            if not bot.ads.page.get_by_role('button', name='Approving...').is_visible():
+                break
+            random_sleep(5, 10)
+        else:
+            logger.error(f'Проблема транзакции Approve!')
+            return
 
         if bot.ads.page.get_by_role('button', name='Swap').is_enabled():
             bot.ads.page.get_by_role('button', name='Swap').hover(timeout=5000)
             bot.ads.page.get_by_role('button', name='Swap').click()
+            random_sleep(3, 5)
+            bot.metamask.universal_confirm()
+
             for _ in range(50):
-                metamask_page = bot.ads.catch_page(['notification'])
-                if metamask_page:
-                    metamask_page.wait_for_load_state('load')
-                    bot.metamask.universal_confirm()
+                if not bot.ads.page.get_by_role('button', name='Swapping...').is_visible():
                     break
                 random_sleep(5, 10)
             else:
-                logger.error(f'Проблема вызова окна Metamask при подтверждении транзакции!')
+                logger.error(f'Проблема транзакции Swap!')
                 return
-            random_sleep(5, 10)
+
             excel_report.increase_counter(f'Swaps')
             swaps += 1
+            random_sleep(5, 10)
+
             bot.ads.page.get_by_alt_text('swap').click()
+            random_sleep(3, 5)
         else:
             bot.ads.page.get_by_alt_text('swap').click()
+            random_sleep(3, 5)
 
         if swaps >= random_count:
             logger.success(f'Выполнено {random_count} свапов! Данные записаны в таблицу SomniaActivity.xlsx')

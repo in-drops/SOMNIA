@@ -127,7 +127,8 @@ def activity(bot: Bot):
                 break
             random_sleep(5, 10)
         else:
-            logger.error(f'Проблема транзакции Approve!')
+            logger.error(f'Ошибка транзакции Approve!')
+            logger.success(f'Выполнено свапов: {random_count}! Данные записаны в таблицу SomniaActivity.xlsx')
             return
 
         if bot.ads.page.get_by_role('button', name='Swap').is_enabled():
@@ -141,7 +142,8 @@ def activity(bot: Bot):
                     break
                 random_sleep(5, 10)
             else:
-                logger.error(f'Проблема транзакции Swap!')
+                logger.error(f'Ошибка транзакции Swap!')
+                logger.success(f'Выполнено свапов: {random_count}! Данные записаны в таблицу SomniaActivity.xlsx')
                 return
 
             excel_report.increase_counter(f'Swaps')
@@ -154,7 +156,7 @@ def activity(bot: Bot):
             random_sleep(3, 5)
 
         if swaps >= random_count:
-            logger.success(f'Выполнено {random_count} свапов! Данные записаны в таблицу SomniaActivity.xlsx')
+            logger.success(f'Выполнено свапов: {random_count}! Данные записаны в таблицу SomniaActivity.xlsx')
             break
 
 if __name__ == '__main__':

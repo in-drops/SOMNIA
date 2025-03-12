@@ -66,14 +66,14 @@ def activity(bot: Bot):
 
     bot.ads.page.get_by_role('button', name='Swap').scroll_into_view_if_needed()
     random_sleep(3, 5)
-    bot.ads.page.get_by_role('button', name='Swap').hover(timeout=5000)
+    bot.ads.page.get_by_role('button', name='Swap').hover()
     bot.ads.page.get_by_role('button', name='Swap').click()
     random_sleep(10, 20)
 
     if bot.ads.page.get_by_role('button', name='Mint $PONG').is_enabled(timeout=100000) and bot.ads.page.get_by_role(
             'button',
             name='Mint $PING').is_enabled(timeout=100000):
-        bot.ads.page.get_by_role('button', name='Mint $PONG').hover(timeout=5000)
+        bot.ads.page.get_by_role('button', name='Mint $PONG').hover()
         bot.ads.page.get_by_role('button', name='Mint $PONG').click()
         random_sleep(3, 5)
         bot.metamask.universal_confirm()
@@ -87,7 +87,7 @@ def activity(bot: Bot):
             logger.error(f'Проблема получения токенов после подтверждении транзакции!')
             return
 
-        bot.ads.page.get_by_role('button', name='Mint $PING').hover(timeout=5000)
+        bot.ads.page.get_by_role('button', name='Mint $PING').hover()
         bot.ads.page.get_by_role('button', name='Mint $PING').click()
         random_sleep(3, 5)
         bot.metamask.universal_confirm()
@@ -132,7 +132,7 @@ def activity(bot: Bot):
             return
 
         if bot.ads.page.get_by_role('button', name='Swap').is_enabled():
-            bot.ads.page.get_by_role('button', name='Swap').hover(timeout=5000)
+            bot.ads.page.get_by_role('button', name='Swap').hover()
             bot.ads.page.get_by_role('button', name='Swap').click()
             random_sleep(3, 5)
             bot.metamask.universal_confirm()

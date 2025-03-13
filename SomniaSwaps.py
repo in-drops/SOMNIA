@@ -78,13 +78,13 @@ def activity(bot: Bot):
         # random_sleep(3, 5)
         # bot.metamask.universal_confirm(windows=2, buttons=2)
         # random_sleep(5, 10)
-        for _ in range(50):
+        for _ in range(20):
             metamask_page = bot.ads.catch_page(['notification'])
             if metamask_page:
                 metamask_page.wait_for_load_state('load')
                 bot.metamask.universal_confirm()
                 break
-            random_sleep(3, 5)
+            random_sleep(5, 10)
         else:
             logger.error(f'Ошибка вызова окна Metamask!')
             return
@@ -102,13 +102,13 @@ def activity(bot: Bot):
         # random_sleep(3, 5)
         # bot.metamask.universal_confirm(windows=2, buttons=2)
         # random_sleep(5, 10)
-        for _ in range(50):
+        for _ in range(20):
             metamask_page = bot.ads.catch_page(['notification'])
             if metamask_page:
                 metamask_page.wait_for_load_state('load')
                 bot.metamask.universal_confirm()
                 break
-            random_sleep(3, 5)
+            random_sleep(5, 10)
         else:
             logger.error(f'Ошибка вызова окна Metamask!')
             return
@@ -141,13 +141,13 @@ def activity(bot: Bot):
             # random_sleep(3, 5)
             # bot.metamask.universal_confirm()
             # random_sleep(5, 10)
-        for _ in range(50):
+        for _ in range(20):
             metamask_page = bot.ads.catch_page(['notification'])
             if metamask_page:
                 metamask_page.wait_for_load_state('load')
                 bot.metamask.universal_confirm()
                 break
-            random_sleep(3, 5)
+            random_sleep(5, 10)
         else:
             logger.error(f'Ошибка вызова окна Metamask!')
             return
@@ -166,13 +166,13 @@ def activity(bot: Bot):
             bot.ads.page.get_by_role('button', name='Swap').click()
             # random_sleep(3, 5)
             # bot.metamask.universal_confirm()
-            for _ in range(50):
+            for _ in range(20):
                 metamask_page = bot.ads.catch_page(['notification'])
                 if metamask_page:
                     metamask_page.wait_for_load_state('load')
                     bot.metamask.universal_confirm()
                     break
-                random_sleep(3, 5)
+                random_sleep(5, 10)
             else:
                 logger.error(f'Ошибка вызова окна Metamask!')
                 return

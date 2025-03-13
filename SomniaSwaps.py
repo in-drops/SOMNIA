@@ -75,34 +75,54 @@ def activity(bot: Bot):
             name='Mint $PING').is_enabled(timeout=100000):
         bot.ads.page.get_by_role('button', name='Mint $PONG').hover()
         bot.ads.page.get_by_role('button', name='Mint $PONG').click()
-        random_sleep(3, 5)
-        bot.metamask.universal_confirm()
-        random_sleep(5, 10)
+        # random_sleep(3, 5)
+        # bot.metamask.universal_confirm(windows=2, buttons=2)
+        # random_sleep(5, 10)
+        for _ in range(50):
+            metamask_page = bot.ads.catch_page(['notification'])
+            if metamask_page:
+                metamask_page.wait_for_load_state('load')
+                bot.metamask.universal_confirm()
+                break
+            random_sleep(3, 5)
+        else:
+            logger.error(f'Ошибка вызова окна Metamask!')
+            return
 
         for _ in range(50):
             if not bot.ads.page.get_by_role('button', name='Minting...').is_visible():
                 break
             random_sleep(5, 10)
         else:
-            logger.error(f'Проблема получения токенов после подтверждении транзакции!')
+            logger.error(f'Ошибка получения токенов после подтверждении транзакции!')
             return
 
         bot.ads.page.get_by_role('button', name='Mint $PING').hover()
         bot.ads.page.get_by_role('button', name='Mint $PING').click()
-        random_sleep(3, 5)
-        bot.metamask.universal_confirm()
-        random_sleep(5, 10)
+        # random_sleep(3, 5)
+        # bot.metamask.universal_confirm(windows=2, buttons=2)
+        # random_sleep(5, 10)
+        for _ in range(50):
+            metamask_page = bot.ads.catch_page(['notification'])
+            if metamask_page:
+                metamask_page.wait_for_load_state('load')
+                bot.metamask.universal_confirm()
+                break
+            random_sleep(3, 5)
+        else:
+            logger.error(f'Ошибка вызова окна Metamask!')
+            return
 
         for _ in range(50):
             if not bot.ads.page.get_by_role('button', name='Minting...').is_visible():
                 break
             random_sleep(5, 10)
         else:
-            logger.error(f'Проблема получения токенов после подтверждении транзакции!')
+            logger.error(f'Ошибка получения токенов после подтверждении транзакции!')
             return
 
     else:
-        logger.error('Проблема загрузки элементов страницы!')
+        logger.error('Ошибка загрузки элементов страницы!')
 
     swaps = 0
     random_count = random.randint(5, 10)
@@ -118,9 +138,19 @@ def activity(bot: Bot):
 
         if bot.ads.page.get_by_role('button', name='Approve').count():
             bot.ads.page.get_by_role('button', name='Approve').click()
+            # random_sleep(3, 5)
+            # bot.metamask.universal_confirm()
+            # random_sleep(5, 10)
+        for _ in range(50):
+            metamask_page = bot.ads.catch_page(['notification'])
+            if metamask_page:
+                metamask_page.wait_for_load_state('load')
+                bot.metamask.universal_confirm()
+                break
             random_sleep(3, 5)
-            bot.metamask.universal_confirm()
-            random_sleep(5, 10)
+        else:
+            logger.error(f'Ошибка вызова окна Metamask!')
+            return
 
         for _ in range(50):
             if not bot.ads.page.get_by_role('button', name='Approving...').is_visible():
@@ -134,8 +164,18 @@ def activity(bot: Bot):
         if bot.ads.page.get_by_role('button', name='Swap').is_enabled():
             bot.ads.page.get_by_role('button', name='Swap').hover()
             bot.ads.page.get_by_role('button', name='Swap').click()
-            random_sleep(3, 5)
-            bot.metamask.universal_confirm()
+            # random_sleep(3, 5)
+            # bot.metamask.universal_confirm()
+            for _ in range(50):
+                metamask_page = bot.ads.catch_page(['notification'])
+                if metamask_page:
+                    metamask_page.wait_for_load_state('load')
+                    bot.metamask.universal_confirm()
+                    break
+                random_sleep(3, 5)
+            else:
+                logger.error(f'Ошибка вызова окна Metamask!')
+                return
 
             for _ in range(50):
                 if not bot.ads.page.get_by_role('button', name='Swapping...').is_visible():

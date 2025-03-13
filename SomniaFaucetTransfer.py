@@ -83,6 +83,8 @@ def activity(bot: Bot):
             excel_report.increase_counter(f'Faucet')
             break
         random_sleep(5, 10)
+    else:
+        logger.warning('Токены $SST не удалось получить! Делаем Transfer.')
 
     bot.ads.page.locator('button', has_text='Close').click()
 

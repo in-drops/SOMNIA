@@ -141,16 +141,17 @@ def activity(bot: Bot):
             # random_sleep(3, 5)
             # bot.metamask.universal_confirm()
             # random_sleep(5, 10)
-        for _ in range(20):
-            metamask_page = bot.ads.catch_page(['notification'])
-            if metamask_page:
-                metamask_page.wait_for_load_state('load')
-                bot.metamask.universal_confirm()
-                break
-            random_sleep(5, 10)
-        else:
-            logger.error(f'Ошибка вызова окна Metamask!')
-            return
+            for _ in range(20):
+                metamask_page = bot.ads.catch_page(['notification'])
+                if metamask_page:
+                    metamask_page.wait_for_load_state('load')
+                    bot.metamask.universal_confirm()
+                    break
+                random_sleep(5, 10)
+            else:
+                logger.error(f'Ошибка вызова окна Metamask!')
+                return
+
 
         for _ in range(50):
             if not bot.ads.page.get_by_role('button', name='Approving...').is_visible():

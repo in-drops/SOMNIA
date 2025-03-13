@@ -150,7 +150,7 @@ class Ads:
                         self.pages_context_reload()
                     random_sleep(1, 2)
 
-        logger.warning(f'{self.profile_number} Ошибка страница не найдена: {url_contains}')
+        # logger.warning(f'{self.profile_number} Ошибка страница не найдена: {url_contains}')
         return None
 
     def pages_context_reload(self) -> None:

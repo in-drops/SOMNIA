@@ -4,6 +4,7 @@ from loguru import logger
 from config import config, Chains
 from core.bot import Bot
 from core.excel import Excel
+from core.onchain import Onchain
 from models.account import Account
 from utils.inputs import input_pause, input_cycle_pause, input_cycle_amount
 from utils.logging import init_logger
@@ -46,6 +47,7 @@ def activity(bot: Bot):
     excel_report.set_date('Date')
     bot.metamask.auth_metamask()
     bot.metamask.select_chain(Chains.SOMNIA_TESTNET)
+    somnnia_balance_before = Onchain(bot.account, Chains.SOMNIA_TESTNET).get_balance().ether
     bot.ads.open_url('https://testnet.somnia.network')
     random_sleep(5, 10)
     connect_button = bot.ads.page.get_by_role('button', name='Connect')
@@ -62,22 +64,25 @@ def activity(bot: Bot):
         logger.error('Сайт на данный момент не активен! Попробуйте позже.')
         return
 
-    for _ in range(3):
-        bot.ads.page.reload(wait_until='load')
-        random_sleep(3, 5)
-        bot.ads.page.get_by_role('button', name='Request Tokens').scroll_into_view_if_needed()
-        random_sleep(3, 5)
-        bot.ads.page.get_by_role('button', name='Request Tokens').hover(timeout=5000)
-        bot.ads.page.get_by_role('button', name='Request Tokens').click()
-        random_sleep(3, 5)
-        bot.ads.page.get_by_role('button', name='Get STT').hover(timeout=5000)
-        bot.ads.page.get_by_role('button', name='Get STT').click()
-        random_sleep(10, 20)
-        if bot.ads.page.get_by_role('dialog').get_by_text('Sending tokens...⏳').count():
-            logger.success('Идёт процесс получения токенов SST!')
+    bot.ads.page.reload(wait_until='load')
+    random_sleep(3, 5)
+    bot.ads.page.get_by_role('button', name='Request Tokens').scroll_into_view_if_needed()
+    random_sleep(3, 5)
+    bot.ads.page.get_by_role('button', name='Request Tokens').hover(timeout=5000)
+    bot.ads.page.get_by_role('button', name='Request Tokens').click()
+    random_sleep(3, 5)
+    bot.ads.page.get_by_role('button', name='Get STT').hover(timeout=5000)
+    bot.ads.page.get_by_role('button', name='Get STT').click()
+    random_sleep(10, 20)
+
+
+    for _ in range(10):
+        somnnia_balance_after = Onchain(bot.account, Chains.SOMNIA_TESTNET).get_balance().ether
+        if somnnia_balance_after > somnnia_balance_before:
+            logger.success('Токены $SST успешно получены!')
             excel_report.increase_counter(f'Faucet')
-            random_sleep(20, 30)
             break
+        random_sleep(5, 10)
 
     bot.ads.page.locator('button', has_text='Close').click()
 

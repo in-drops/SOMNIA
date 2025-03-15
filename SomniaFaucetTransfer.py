@@ -76,7 +76,7 @@ def activity(bot: Bot):
     random_sleep(10, 20)
 
 
-    for _ in range(10):
+    for _ in range(20):
         somnnia_balance_after = Onchain(bot.account, Chains.SOMNIA_TESTNET).get_balance().ether
         if somnnia_balance_after > somnnia_balance_before:
             logger.success('Токены $SST успешно получены!')
@@ -84,7 +84,7 @@ def activity(bot: Bot):
             break
         random_sleep(5, 10)
     else:
-        logger.warning('Токены $SST не удалось получить! Делаем Transfer.')
+        logger.warning('Возможно токены $SST не удалось получить! Делаем Transfer.')
 
     bot.ads.page.locator('button', has_text='Close').click()
 

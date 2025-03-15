@@ -70,9 +70,9 @@ def activity(bot: Bot):
     bot.ads.page.get_by_role('button', name='Swap').click()
     random_sleep(10, 20)
 
-    if bot.ads.page.get_by_role('button', name='Mint PONG').is_enabled(timeout=100000) and bot.ads.page.get_by_role(
+    if bot.ads.page.get_by_role('button', name='Mint PONG').count() and bot.ads.page.get_by_role(
             'button',
-            name='Mint PING').is_enabled(timeout=100000):
+            name='Mint PING').count():
         bot.ads.page.get_by_role('button', name='Mint PONG').hover()
         bot.ads.page.get_by_role('button', name='Mint PONG').click()
         random_sleep(3, 5)
@@ -121,8 +121,12 @@ def activity(bot: Bot):
             logger.error(f'Ошибка получения токенов после подтверждении транзакции!')
             return
 
+    elif bot.ads.page.get_by_role('button', name='Already Minted PONG').is_visible() and bot.ads.page.get_by_role('button', name='Already Minted PING').is_visible():
+        logger.warning('Токены уже есть на балансе! Делаем свапы...')
+
     else:
         logger.error('Ошибка загрузки элементов страницы!')
+        return
 
     swaps = 0
     random_count = random.randint(5, 10)

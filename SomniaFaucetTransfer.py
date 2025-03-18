@@ -75,7 +75,6 @@ def activity(bot: Bot):
     bot.ads.page.get_by_role('button', name='Get STT').click()
     random_sleep(10, 20)
 
-
     for _ in range(20):
         somnnia_balance_after = Onchain(bot.account, Chains.SOMNIA_TESTNET).get_balance().ether
         if somnnia_balance_after > somnnia_balance_before:
@@ -84,7 +83,7 @@ def activity(bot: Bot):
             break
         random_sleep(5, 10)
     else:
-        logger.warning('Возможно токены $SST не удалось получить! Делаем Transfer.')
+        logger.warning('Возможно токены $SST не удалось получить! Делаем Transfer...')
 
     bot.ads.page.locator('button', has_text='Close').click()
 
@@ -117,8 +116,6 @@ def activity(bot: Bot):
         excel_report.increase_counter(f'Transfer Site')
     else:
         logger.error('Transfer токенов не удался! Возможно нехватка баланса или ошибка сайта / блокчейна.')
-
-
 
 if __name__ == '__main__':
     try:

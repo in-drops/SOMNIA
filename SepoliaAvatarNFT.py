@@ -44,7 +44,7 @@ def activity(bot: Bot):
     contract_address = '0x2a0f1C1cE263202f629bF41FA7Caa3D5F8FD52C4'
     sepolia_balance = bot.onchain.get_balance().ether
     if sepolia_balance == 0:
-        logger.error(f'Баланс в сети {Chains.SOMNIA_TESTNET} недостаточный: {sepolia_balance:.4f}!')
+        logger.error(f'Баланс в сети {Chains.SEPOLIA_TESTNET} недостаточный: {sepolia_balance:.4f}!')
         return
     tx = bot.onchain._prepare_tx(to_address=contract_address)
     tx['data'] = '0x1249c58b'
